@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { Person } from '../../../constants/types';
 
 interface PersonDisplayProps {
+  key: string;
   item: Person;
   onEdit: (email: string) => void;
 }
@@ -16,9 +17,7 @@ const CustomCard = styled(Card)`
 
 export const PersonListItem = ({ onEdit, item }: PersonDisplayProps) => (
   <List.Item
-    actions={[
-      <Button onClick={() => onEdit(item.email)} icon={<EditOutlined />} />,
-    ]}
+    actions={[<Button onClick={() => onEdit(item.email)} icon={<EditOutlined />} />]}
   >
     <List.Item.Meta
       avatar={<Avatar src={item.image} />}
@@ -33,9 +32,7 @@ export const PersonCard = ({ item, onEdit }: PersonDisplayProps) => (
     <CustomCard
       bordered
       style={{}}
-      actions={[
-        <Button onClick={() => onEdit(item.email)} icon={<EditOutlined />} />,
-      ]}
+      actions={[<Button onClick={() => onEdit(item.email)} icon={<EditOutlined />} />]}
     >
       <Card.Meta
         avatar={<Avatar src={item.image} />}
