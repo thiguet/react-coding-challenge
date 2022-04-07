@@ -32,7 +32,11 @@ const Home = () => {
         handleLoadMore={() => execute(pageSize)}
         hasMore={people.length < totalItems}
         ItemRenderer={({ item }: any) => (
-          <Component onEdit={(email) => router.push(`/person/${email}`)} item={item} />
+          <Component
+            key={item.id}
+            onEdit={(email) => router.push(`/person/${email}`)}
+            item={item}
+          />
         )}
         Header={
           <Header

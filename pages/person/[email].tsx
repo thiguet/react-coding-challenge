@@ -10,6 +10,7 @@ import { usePersonInformation } from '../../components/hooks/usePersonInformatio
 
 import { Company } from '../../constants/types';
 import { ResponsiveListCard } from '../../constants';
+import { PersonForm } from '../../components/organisms/PersonForm';
 
 const PersonDetail = () => {
   const router = useRouter();
@@ -17,6 +18,7 @@ const PersonDetail = () => {
     router.query?.email as string,
     true
   );
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     load();
@@ -32,6 +34,10 @@ const PersonDetail = () => {
     );
     return <></>;
   }
+
+  const handleEditClick = () => {
+    setIsEditing(!isEditing);
+  };
 
   return (
     <>
@@ -49,12 +55,12 @@ const PersonDetail = () => {
           >
             Visit website
           </Button>,
-          <Button type="default" onClick={() => {}}>
+          <Button type="default" onClick={handleEditClick}>
             Edit
           </Button>,
         ]}
       >
-        {data && (
+        {data && !isEditing ? (
           <Descriptions size="small" column={1}>
             <Descriptions.Item label="Name">{data.name}</Descriptions.Item>
             <Descriptions.Item label="Gender">{data.gender}</Descriptions.Item>
@@ -62,6 +68,8 @@ const PersonDetail = () => {
 
             <Descriptions.Item label="Birthday">{data.birthday}</Descriptions.Item>
           </Descriptions>
+        ) : (
+          <PersonForm onFinish={save} onFinishFailed={undefined}></PersonForm>
         )}
         <GenericList<Company>
           loading={loading}
